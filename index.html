@@ -1,1 +1,148 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TSEGRP — Transformation</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3CradialGradient id='g' cx='.35' cy='.3' r='.8'%3E%3Cstop offset='0' stop-color='%23fff0b8'/%3E%3Cstop offset='.45' stop-color='%23d4a63a'/%3E%3Cstop offset='1' stop-color='%238a6414'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0a'/%3E%3Ccircle cx='32' cy='32' r='25' fill='none' stroke='%23d4a63a' stroke-opacity='.6' stroke-width='2'/%3E%3Ccircle cx='32' cy='32' r='17' fill='url%28%23g%29'/%3E%3Cpath d='M9 29 Q32 41 55 29' fill='none' stroke='%23f6dc8e' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0a0a0a">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--k:#0a0a0a;--g1:#f6dc8e;--g2:#d4a63a;--g3:#8a6414;--cr:#f5ecd7;box-sizing:border-box}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--k);color:var(--cr);font:400 17px/1.6 Manrope,system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:400;line-height:1.05;margin:0}
+.gold{background:linear-gradient(110deg,var(--g3),var(--g1) 30%,var(--g2) 50%,var(--g1) 70%,var(--g3));background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 7s linear infinite}
+@keyframes sheen{to{background-position:-220% 0}}
+.btn{display:inline-block;background:linear-gradient(120deg,var(--g3),var(--g2),var(--g1));color:#14100a;border:0;padding:14px 28px;border-radius:99px;font:700 15px Manrope,sans-serif;text-decoration:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(212,166,58,.45)}
 
+.fwrap{max-width:640px;margin:0 auto;width:100%}
+form{background:#100e0b;color:var(--cr);border:1px solid rgba(212,166,58,.45);border-radius:28px;overflow:hidden;box-shadow:0 0 70px rgba(212,166,58,.12);display:block}
+.fl{padding:30px 34px 22px;background:linear-gradient(135deg,#1c1507,#100e0b);border-bottom:1px solid rgba(212,166,58,.3)}
+.fl h3{font-size:26px;margin:6px 0 6px}.fl p{margin:0;color:#b9ad90;font-size:15px}
+.fl .kick{font:700 11px Manrope;letter-spacing:.3em;text-transform:uppercase;color:var(--g2)}
+.bar{height:3px;background:rgba(245,236,215,.12);border-radius:3px;margin-top:18px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--g3),var(--g1));transition:width .5s}
+.fr{padding:26px 34px 34px;display:grid;gap:16px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{font-size:13px;color:#b9ad90;display:grid;gap:6px}
+input,textarea,select{background:#0a0a0a;color:var(--cr);border:1px solid rgba(245,236,215,.18);border-radius:12px;padding:13px 14px;font:inherit;width:100%}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--g2) 50%),linear-gradient(135deg,var(--g2) 50%,transparent 50%);background-position:calc(100% - 20px) 50%,calc(100% - 14px) 50%;background-size:6px 6px;background-repeat:no-repeat;padding-right:38px}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--g2)}
+#reason{font-size:17px;border-color:rgba(212,166,58,.6)}
+.dyn{display:grid;gap:16px}.dyn>*{animation:rise .5s both}.dyn>*:nth-child(2){animation-delay:.07s}.dyn>*:nth-child(3){animation-delay:.14s}.dyn>*:nth-child(4){animation-delay:.21s}.dyn>*:nth-child(5){animation-delay:.28s}.dyn>*:nth-child(6){animation-delay:.35s}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+label.consent{display:flex;gap:10px;align-items:flex-start;line-height:1.5}label.consent input{margin-top:3px;accent-color:var(--g2);flex:none;width:auto}
+a.lg{color:var(--g1);text-decoration:underline;cursor:pointer}
+#ok{border:1px solid var(--g2);border-radius:14px;padding:16px;text-align:center;animation:pop .6s}
+@keyframes pop{from{opacity:0;transform:scale(.9)}}
+#pillars{padding:100px 24px;background:radial-gradient(ellipse at 50% 0,#1a1408,#0a0a0a 70%)}
+#pillars .in{max-width:1100px;margin:0 auto}#pillars h2{font-size:clamp(32px,4.6vw,56px);margin-bottom:12px}
+#pillars .sub{color:#b9ad90;max-width:640px;margin:0 0 40px;font-size:18px}
+.pg{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.pc{border:1px solid rgba(212,166,58,.35);border-radius:22px;padding:28px;background:linear-gradient(160deg,rgba(212,166,58,.09),transparent);opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s,border-color .3s,box-shadow .3s}
+.pc.in{opacity:1;transform:none}.pc:hover,.pc.hl{border-color:var(--g1);box-shadow:0 14px 50px rgba(212,166,58,.2);transform:translateY(-6px)}
+.pc .n{font:italic 400 44px Fraunces,serif;color:var(--g2);opacity:.75}.pc h3{font-size:24px;margin:4px 0 4px;color:var(--g1)}
+.pc .tag{font:700 11px Manrope;letter-spacing:.2em;text-transform:uppercase;color:var(--cr);opacity:.7;margin-bottom:12px}
+.pc p{margin:0;color:#d8cdb2;font-size:15.5px}
+html{padding-top:env(safe-area-inset-top,0px)}
+#stage{position:relative;height:100vh;min-height:680px;overflow:hidden;background:radial-gradient(circle at 50% 50%,#1a1408,#0a0a0a 65%)}
+canvas{position:absolute;inset:0;width:100%;height:100%;cursor:pointer}
+.w{position:absolute;left:50%;top:50%;opacity:0;pointer-events:none;white-space:nowrap;text-align:center}
+.w span{display:block;animation:fl 5s ease-in-out infinite alternate}@keyframes fl{to{transform:translateY(-9px)}}
+#np{font:italic 400 clamp(38px,8vw,110px)/1 Fraunces,serif}
+#np small{display:block;font:700 12px Manrope;letter-spacing:.35em;text-transform:uppercase;color:var(--cream,#f5ecd7);margin-bottom:10px;-webkit-text-fill-color:#f5ecd7}
+.p{pointer-events:auto!important;cursor:pointer;transition:background .25s,color .25s}.p:hover{background:var(--g2);color:#14100a}.p:hover b{color:#14100a}
+.p{font:600 clamp(11px,1.5vw,15px) Manrope;border:1px solid rgba(212,166,58,.6);background:rgba(10,10,10,.7);border-radius:99px;padding:9px 16px;color:var(--g1);backdrop-filter:blur(6px);white-space:normal;max-width:150px;line-height:1.25}
+.p b{color:var(--cr);margin-right:6px;font-weight:700}
+#cm{font:400 clamp(34px,7vw,84px)/1 Fraunces,serif}
+#cm small{display:block;font:500 clamp(11px,1.4vw,14px) Manrope;letter-spacing:.2em;text-transform:uppercase;color:var(--cr);margin-top:8px;-webkit-text-fill-color:#f5ecd7}
+#join{background:var(--cr);color:var(--k);padding:100px 24px}
+#join .in{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:start}
+#join h2{font-size:clamp(32px,4.6vw,56px)}#join em{color:#8f6610}
+#join p{color:#5b5242;font-size:18px}
+.foot{background:var(--k);text-align:center;padding:26px;color:#b9ad90;font-size:13px}
+@media(max-width:820px){#join .in{grid-template-columns:1fr}}
+.foot a{color:var(--g1);cursor:pointer;margin:0 10px}.foot a:hover{text-decoration:underline}
+.modal{position:fixed;inset:0;background:rgba(10,10,10,.88);backdrop-filter:blur(6px);z-index:100;display:none;align-items:center;justify-content:center;padding:4vw}.modal.open{display:flex}
+.modal .box{background:var(--cr);color:var(--k);max-width:760px;max-height:86vh;overflow:auto;padding:40px;border-radius:24px;border:1px solid var(--g2);position:relative}
+.modal h3{font-size:30px;margin-bottom:4px}.modal h4{font:700 14px Manrope;margin:20px 0 4px;color:var(--g3);letter-spacing:.06em;text-transform:uppercase}
+.modal p{font-size:15px;color:#3d3526;margin:0 0 6px}.modal small{color:#7a6c4a}
+.modal .x{position:absolute;top:10px;right:18px;font-size:30px;cursor:pointer;background:none;border:0;color:var(--g3)}
+@media(max-width:820px){.row2{grid-template-columns:1fr}.fl,.fr{padding-left:22px;padding-right:22px}.modal .box{padding:26px}}
+</style></head><body>
+<div id="stage"><canvas id="c"></canvas>
+<div class="w" id="np"><span class="gold"><small>TSEGRP</small>Transformation</span></div>
+<div class="w" id="cm"><span class="gold">Community<small>Women created · Women led · Always at the center</small></span></div></div>
+<section id="join"><div class="in">
+<div><h2>Women created. Women led. <em>Community at the center.</em></h2>
+<p>Two homes, one community in the United States and Kenya, building safe, holistic, community-centered establishments.</p></div>
+<div class="fwrap" id="contact">
+<form id="f" novalidate>
+<div class="fl"><div class="kick" id="kick">Step 1</div><h3 id="ftitle">Why are you reaching out?</h3><p id="ftext">Choose a reason and this form will shape itself around you.</p><div class="bar"><i id="bar"></i></div></div>
+<div class="fr">
+<label>Why are you reaching out?
+<select id="reason" name="r" required><option value="">Select a reason…</option>
+<option>Join the community</option><option>Volunteer my time or skills</option><option>Attend an information session</option><option>Ethical employment and pathways</option><option>Something else</option></select></label>
+<div class="dyn" id="dyn"></div>
+<input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+<div id="ok" hidden></div>
+</div></form>
+</div></div></section>
+<section id="pillars"><div class="in"><h2 class="gold">The meaning behind our pillars</h2><p class="sub">Six pillars, one living system. Each one answers a question every woman and community deserves answered.</p><div class="pg"><div class="pc" id="pc0"><div class="n">01</div><h3>Holistic Growth</h3><div class="tag">Whole-person growth</div><p>Growth that sees the whole person and the whole community. Wellbeing, learning, livelihood and purpose move forward together, so change lasts for generations.</p></div><div class="pc" id="pc1"><div class="n">02</div><h3>Innovation & Entrepreneurship</h3><div class="tag">Ideas that become income</div><p>Backing women and communities as they turn ideas into ventures. We open pathways to build, test and scale businesses that create wealth for families and neighborhoods.</p></div><div class="pc" id="pc2"><div class="n">03</div><h3>Community Building</h3><div class="tag">Strength in belonging</div><p>No one rises alone. We build networks, spaces and shared responsibility so people are held up by each other.</p></div><div class="pc" id="pc3"><div class="n">04</div><h3>Ethical Employment</h3><div class="tag">Safety in standards</div><p>There is safety in standards, so we hold every workplace to them; true community begins with them.</p></div><div class="pc" id="pc4"><div class="n">05</div><h3>Strategic Development</h3><div class="tag">Vision with a plan</div><p>Careful planning, partnerships and operations that turn mission into measurable, sustainable results, in both the United States and Kenya.</p></div><div class="pc" id="pc5"><div class="n">06</div><h3>Dignified Solutions</h3><div class="tag">Respect in every answer</div><p>Every program and service is designed to preserve dignity and agency. We offer solutions with women and the community, not to them.</p></div></div></div></section>
+<div class="foot">© <span id="yr"></span> TSEGRP · All rights reserved<br><a data-m="terms">Terms of Use</a><a data-m="privacy">Privacy Policy</a><a data-m="ip">Intellectual Property</a></div>
+<div class="modal" id="terms"><div class="box"><button class="x" aria-label="Close">×</button><h3>Terms of Use</h3><small>Last updated: October 27, 2026</small><h4>1. Acceptance</h4><p>By using this website you agree to these Terms. If you do not agree, please do not use the site.</p><h4>2. Use of the site</h4><p>Use the site for lawful purposes only. Do not disrupt it, attempt unauthorized access, submit false or harmful content, or use it to harass or defraud others.</p><h4>3. Information</h4><p>Content here is general information about TSEGRP. It is not professional, legal, financial or investment advice, and it is not a binding offer.</p><h4>4. Messages you send</h4><p>Submitting a form does not create a partnership, employment or contractual relationship. We may follow up but are not obligated to respond to every message.</p><h4>5. Third-party links</h4><p>We are not responsible for the content or practices of any third-party sites linked from here.</p><h4>6. Disclaimer and liability</h4><p>The site is provided “as is” without warranties. To the fullest extent permitted by law, TSEGRP is not liable for damages arising from your use of the site.</p><h4>7. Changes and governing law</h4><p>We may update these Terms at any time; continued use means acceptance. These Terms are governed by the laws of the State of Maryland, United States.</p></div></div>
+<div class="modal" id="privacy"><div class="box"><button class="x" aria-label="Close">×</button><h3>Privacy Policy</h3><small>Last updated: October 27, 2026</small><h4>1. What we collect</h4><p>Through our contact form we collect your name, your preferred contact detail, the reason you choose, your answers to the follow-up questions and your message. We also record the date and time of submission. Each submission receives an internal reference used only by our team for record keeping.</p><h4>2. How we use it</h4><p>We use this information only to respond to you, route your request to the right person and keep internal records. We do not sell your personal information.</p><h4>3. Sharing</h4><p>We share information only with team members and service providers (such as our web host and email provider) who need it to operate the site and respond to you, or when required by law.</p><h4>4. Retention and security</h4><p>We keep submissions only as long as needed for these purposes and use reasonable safeguards. No online transmission is completely secure.</p><h4>5. Your choices</h4><p>You may ask us to access, correct or delete your information by contacting us through the site’s contact form.</p><h4>6. International use</h4><p>We operate in the United States and Kenya. By submitting information you understand it may be processed in either country.</p><h4>7. Children</h4><p>This site is not directed to children under 13 and we do not knowingly collect their information.</p></div></div>
+<div class="modal" id="ip"><div class="box"><button class="x" aria-label="Close">×</button><h3>Intellectual Property</h3><small>Last updated: October 27, 2026</small><h4>Ownership</h4><p>All content on this site, including the TSEGRP and CGL TSE Group names, logos, the “Embers of Impact” and “A Legacy That Rises” taglines, designs, graphics, text, animations, code and layout, is the property of TSEGRP and is protected by copyright, trademark and other intellectual property laws.</p><h4>Limited license</h4><p>You may view the site for personal, non-commercial purposes. You may not copy, reproduce, modify, distribute, display, scrape, create derivative works from, or commercially use any content without our prior written permission.</p><h4>Trademarks</h4><p>Our names, logos and taglines may not be used in a way that suggests affiliation, sponsorship or endorsement without written consent.</p><h4>Submissions</h4><p>Ideas or materials you send us remain yours, but you grant us a non-exclusive license to review and use them solely to evaluate and respond to your inquiry.</p><h4>Infringement</h4><p>If you believe content here infringes your rights, contact us through the site’s contact form and we will review promptly.</p></div></div>
+<script>
+const P=["Holistic Growth","Innovation & Entrepreneurship","Community Building","Ethical Employment","Strategic Development","Dignified Solutions"];
+const st=document.getElementById('stage'),cv=document.getElementById('c'),x=cv.getContext('2d');
+let W,H,R,cx,cy,sparks=[],ang=0,tilt=.35,mxn=0;
+const N=520,pts=[...Array(N)].map((_,i)=>{const y=1-2*(i+.5)/N,r=Math.sqrt(1-y*y),t=i*2.39996;return[Math.cos(t)*r,y,Math.sin(t)*r]});
+const pills=P.map((t,i)=>{const d=document.createElement('div');d.className='w p';d.innerHTML=`<span><b>0${i+1}</b>${t}</span>`;d.title='See the meaning';d.onclick=()=>{const c=document.getElementById('pc'+i);c.scrollIntoView({behavior:'smooth',block:'center'});c.classList.add('hl');setTimeout(()=>c.classList.remove('hl'),2200)};st.appendChild(d);return d});
+const NP=document.getElementById('np'),CM=document.getElementById('cm');let anims=[];
+function layout(){const dpr=devicePixelRatio||1;W=st.clientWidth;H=st.clientHeight;cv.width=W*dpr;cv.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0);cx=W/2;cy=H/2;R=Math.min(W,H)*.17}
+function targets(){const n=W<700,rx=n?W*.3:Math.min(W*.36,480),ry=n?H*.3:H*.27;return[[NP,0,-H*.36],...pills.map((p,i)=>{const a=-Math.PI/2+i*Math.PI/3+Math.PI/6;return[p,Math.cos(a)*rx,Math.sin(a)*ry*(n?1:1.05)]}),[CM,0,H*.37]]}
+function spit(){anims.forEach(a=>a.cancel());anims=[];targets().forEach(([el,dx,dy],i)=>{const d=i*260+200;
+anims.push(el.animate([{transform:'translate(-50%,-50%) scale(.05)',opacity:0},{opacity:1,offset:.25},{transform:`translate(calc(-50% + ${dx}px),calc(-50% + ${dy}px)) scale(1)`,opacity:1}],{duration:1500,delay:d,easing:'cubic-bezier(.15,.9,.25,1)',fill:'forwards'}));
+setTimeout(()=>{for(let k=0;k<26;k++){const a=Math.atan2(dy,dx)+(Math.random()-.5)*.6,v=2+Math.random()*7;sparks.push({x:cx,y:cy,vx:Math.cos(a)*v,vy:Math.sin(a)*v,l:1})}},d)})}
+function frame(){x.clearRect(0,0,W,H);
+const g=x.createRadialGradient(cx,cy,R*.2,cx,cy,R*2.6);g.addColorStop(0,'rgba(246,220,142,.35)');g.addColorStop(.5,'rgba(212,166,58,.1)');g.addColorStop(1,'rgba(212,166,58,0)');x.fillStyle=g;x.fillRect(0,0,W,H);
+ang+=.006+Math.abs(mxn)*.01;const ca=Math.cos(ang),sa=Math.sin(ang),ct=Math.cos(tilt),stt=Math.sin(tilt);
+pts.map(p=>{const x1=p[0]*ca+p[2]*sa,z1=-p[0]*sa+p[2]*ca,y2=p[1]*ct-z1*stt,z2=p[1]*stt+z1*ct;return[x1,y2,z2]}).sort((a,b)=>a[2]-b[2]).forEach(p=>{const d=(p[2]+1)/2;x.globalAlpha=.2+.8*d;x.fillStyle=d>.7?'#fff0b8':d>.35?'#f0c860':'#a8781c';x.beginPath();x.arc(cx+p[0]*R,cy+p[1]*R,.7+2.3*d,0,7);x.fill()});
+x.globalAlpha=1;sparks=sparks.filter(s=>s.l>0);sparks.forEach(s=>{s.x+=s.vx;s.y+=s.vy;s.vx*=.985;s.vy*=.985;s.l-=.014;x.globalAlpha=Math.max(0,s.l);x.fillStyle='#f6dc8e';x.beginPath();x.arc(s.x,s.y,2.2*s.l+.4,0,7);x.fill()});
+requestAnimationFrame(frame)}
+layout();frame();spit();addEventListener('resize',()=>{layout();spit()});cv.onclick=spit;st.onmousemove=e=>{mxn=(e.clientX/W-.5)*2};
+const ENDPOINT='submit.php'; // submit.php numbers every form and sends it to the team inbox.
+function newId(){const a='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',v=crypto.getRandomValues(new Uint8Array(6)),d=new Date();return 'TSE-'+String(d.getFullYear()).slice(2)+String(d.getMonth()+1).padStart(2,'0')+'-'+[...v].map(x=>a[x%a.length]).join('')}
+const LOC=['United States','Kenya','Elsewhere'];
+const FORMS={
+"Join the community":{t:"Welcome home",p:"Tell us a little about you and what draws you in.",f:[{k:'location',l:'Where are you based?',s:LOC},{k:'pillar',l:'Which pillar speaks to you most?',s:P},{k:'message',l:'What would you like to be part of?',a:1}]},
+"Volunteer my time or skills":{t:"Lend your hands",p:"Tell us what you bring and when you are free.",f:[{k:'skills',l:'Your skills or experience'},{k:'availability',l:'When are you available?',s:['Weekdays','Evenings','Weekends','Flexible']},{k:'location',l:'Where are you based?',s:LOC},{k:'message',l:'Why do you want to volunteer?',a:1}]},
+"Attend an information session":{t:"Save your seat",p:"We will share the next sessions that fit you.",f:[{k:'format',l:'Preferred format',s:['In person: United States','In person: Kenya','Virtual']},{k:'timing',l:'Best time of day',s:['Morning','Afternoon','Evening']},{k:'guests',l:'Number attending',n:1},{k:'message',l:'Anything you want us to cover?',a:1}]},
+"Ethical employment and pathways":{t:"Work that respects you",p:"Tell us about the role or pathway you are looking for.",f:[{k:'role',l:'Area, role or pathway of interest'},{k:'location',l:'Preferred location',s:['United States','Kenya','Remote']},{k:'experience',l:'Years of experience',s:['0 to 2','3 to 5','6 to 10','10+']},{k:'message',l:'Tell us about your background',a:1}]},
+"Something else":{t:"Tell us more",p:"Whatever it is, we will find the right person.",f:[{k:'subject',l:'Subject'},{k:'message',l:'Your message',a:1}]}};
+const rs=document.getElementById('reason'),dy=document.getElementById('dyn'),bar=document.getElementById('bar'),ok=document.getElementById('ok'),fm=document.getElementById('f');
+function fld(o){const r=' required';return `<label>${o.l}${o.s?`<select name="${o.k}"${r}><option value="">Select…</option>${o.s.map(v=>`<option>${v}</option>`).join('')}</select>`:o.a?`<textarea name="${o.k}" rows="4"${r}></textarea>`:o.n?`<input type="number" min="1" max="50" name="${o.k}"${r}>`:`<input name="${o.k}"${r}>`}</label>`}
+function build(){const c=FORMS[rs.value];const keep={};dy.querySelectorAll('[name]').forEach(e=>keep[e.name]=e.value);
+ ok.hidden=true;
+ if(!c){dy.innerHTML='';document.getElementById('kick').textContent='Step 1';document.getElementById('ftitle').textContent='Why are you reaching out?';document.getElementById('ftext').textContent='Choose a reason and this form will shape itself around you.';prog();return}
+ document.getElementById('kick').textContent='Step 2 · '+rs.value;document.getElementById('ftitle').textContent=c.t;document.getElementById('ftext').textContent=c.p;
+ dy.innerHTML=`<div class="row2"><label>Full name<input name="n" required autocomplete="name"></label><label>Phone or preferred way to reach you<input name="e" required autocomplete="tel"></label></div>`+c.f.map(fld).join('')+`<label class="consent"><input type="checkbox" name="consent" required><span>I agree to the <a class="lg" data-m="terms">Terms of Use</a> and <a class="lg" data-m="privacy">Privacy Policy</a>.</span></label><button class="btn" type="submit">Send to TSEGRP</button>`;
+ dy.querySelectorAll('[name]').forEach(e=>{if(keep[e.name]!==undefined&&e.type!=='checkbox')e.value=keep[e.name];e.addEventListener('input',prog);e.addEventListener('change',prog)});
+ bindLegal(dy);prog()}
+function prog(){const all=[rs,...dy.querySelectorAll('[name]')];const done=all.filter(e=>e.type==='checkbox'?e.checked:e.value.trim()).length;bar.style.width=(done/all.length*100)+'%'}
+rs.addEventListener('change',build);
+fm.onsubmit=async e=>{e.preventDefault();if(!fm.checkValidity()){fm.reportValidity();return}
+ const d=Object.fromEntries(new FormData(fm));d.reference=newId();d.sent=new Date().toISOString();
+ try{const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(d)});if(!r.ok)throw 0}
+ catch(x){const l=JSON.parse(localStorage.getItem('tse_inquiries')||'[]');l.push(d);localStorage.setItem('tse_inquiries',JSON.stringify(l));ok.hidden=false;ok.textContent='We could not reach the server. Your message is saved on this device and will be sent when you return.';return}
+ fm.reset();dy.innerHTML='';build();ok.hidden=false;ok.textContent='Message received. Thank you for reaching out to TSEGRP.';bar.style.width='100%'};
+(async()=>{const q=JSON.parse(localStorage.getItem('tse_inquiries')||'[]');if(!q.length)return;const left=[];for(const it of q){try{const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(it)});if(!r.ok)left.push(it)}catch(e){left.push(it)}}localStorage.setItem('tse_inquiries',JSON.stringify(left))})();
+document.getElementById('yr').textContent=new Date().getFullYear();
+function bindLegal(root){root.querySelectorAll('[data-m]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();document.getElementById(a.dataset.m).classList.add('open')}))}
+bindLegal(document);
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m||e.target.classList.contains('x'))m.classList.remove('open')}));
+addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal.open').forEach(m=>m.classList.remove('open'))});
+const io=new IntersectionObserver(es=>es.forEach(x=>x.isIntersecting&&x.target.classList.add('in')),{threshold:.15});document.querySelectorAll('.pc').forEach((c,i)=>{c.style.transitionDelay=(i*80)+'ms';io.observe(c)});
+</script></body></html>
